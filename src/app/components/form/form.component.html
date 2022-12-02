@@ -1,0 +1,76 @@
+<div class="m-5">
+  <h2 class="pb-3">Formulario Reactivo y Validaciones</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <div class="input-group has-validation">
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="
+            name?.invalid && (name?.dirty || name?.touched) ? 'is-invalid' : ''
+          "
+          id="name"
+          formControlName="name"
+        />
+
+        <div *ngIf="name?.errors?.['required']" class="invalid-tooltip">
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <div class="input-group has-validation">
+        <input
+          type="email"
+          class="form-control"
+          [ngClass]="
+            email?.invalid && (email?.dirty || email?.touched)
+              ? 'is-invalid'
+              : ''
+          "
+          id="email"
+          formControlName="email"
+        />
+        <div *ngIf="email?.errors?.['required']" class="invalid-tooltip">
+          Email is required.
+        </div>
+        <div *ngIf="email?.errors?.['email']" class="invalid-tooltip">
+          Email must be valid.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <div class="input-group has-validation">
+        <input
+          type="password"
+          class="form-control"
+          [ngClass]="
+            password?.invalid && (password?.dirty || password?.touched)
+              ? 'is-invalid'
+              : ''
+          "
+          id="password"
+          formControlName="password"
+        />
+        <div *ngIf="password?.errors?.['required']" class="invalid-tooltip">
+          Password is required.
+        </div>
+        <div *ngIf="password?.errors?.['minlength']" class="invalid-tooltip">
+          Password must be 6 characters or more.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Account</button>
+  </form>
+  <div class="mt-5">
+    <p>
+      {{ registerForm.value | json }}
+    </p>
+    <p>
+      {{ registerForm.status }}
+    </p>
+  </div>
+</div>
